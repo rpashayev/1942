@@ -10,6 +10,20 @@ body{
     font-family: 'Press Start 2P', cursive;
 }
 
+form {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.2em;;
+    margin-top: 50px;
+}
+
+h1, label {
+    color: blue;
+}
+
 #container{
     display: flex;
 }
@@ -56,10 +70,10 @@ body{
 .table{
     border:10px solid red;
     text-align: center;
-    height: 15%;
-    width: 20%;
+    height: 25%;
+    width: 100%;
     background-color:white;
-    padding:10px;
+    padding:40px 0px;
     font-size:1.5em;
 }
 
@@ -67,7 +81,7 @@ body{
     margin:15px 0;
 }
 
-.title, #finalText{
+.title, #finalText {
     color: rgb(5, 5, 102);
 }
 

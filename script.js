@@ -51,6 +51,15 @@ var enemies = [
 
 numOfEnemyType = 2;
 
+
+function gameSettings() {
+    numOfEnemies = document.querySelector("#numOfEnemies").value;
+    world.height = document.querySelector("#worldHeight").value;
+    world.width = document.querySelector("#worldWidth").value;
+}
+
+
+
 function randInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -195,11 +204,15 @@ function gameLoop(){
 function keyDown(e){
     //Left movement
     if(e.code === "ArrowLeft" || e.code == "KeyA") {
+        if(hero.x > 10){
         hero.x -=10;
+        }
     }
     //Right movement
     else if(e.code === "ArrowRight" || e.code == "KeyD" ) {
-        hero.x +=10;
+        if(hero.x < world.width-30){
+            hero.x +=10;
+        }
     }
     //Up movement
     else if(e.code === "ArrowUp"  || e.code == "KeyW") {
