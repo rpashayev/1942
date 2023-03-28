@@ -1,13 +1,25 @@
 //Game settings
 
+//audio
+var audio = new Audio("snd/explosion.wav");
+
+var bestScore;
+
 // speed of different objects
 var enemySpeed = 1, missileSpeed = 3, gameSpeed = 10;
 setInterval(gameLoop, gameSpeed);
 
+
+//remove explosion
+setInterval(removeExplosion, 2000);
+
+var explosionClass = document.getElementsByClassName("explosion");
+
 //score and points
 var score = 0;
 var crash = -1;
-var shoot = 10;
+var shoot = 100;
+var pass = -10;
 
 //world's dimension
 var world = {
@@ -22,6 +34,9 @@ var hero = {
 };
 
 var missiles = [];
+var missileClass = document.getElementsByClassName("missile");
+
+var explosions = [];
 
 //enemies 
 var enemies = [
@@ -34,13 +49,15 @@ var enemies = [
     {x: 470, y: 150}
 ];
 
+numOfEnemyType = 2;
+
 function randInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function displayWorld(){
-    document.getElementById("container").style.height = world.height + "px";
-    document.getElementById("container").style.width = world.width + "px";
+    document.getElementById("world").style.height = world.height + "px";
+    document.getElementById("world").style.width = world.width + "px";
 }
 displayWorld();
 
@@ -67,19 +84,19 @@ function moveMissiles(){
     }
 }
 
-var numEnemies1 = randInt(1, enemies.length);
+function randomEnemies(){
+    for(var i=0; i<enemies.length; i++){
+        var enemyType = randInt(1, numOfEnemyType);
+        enemies[i].type = "enemy"+enemyType;
+    }
+}
+randomEnemies();
+
+
 function displayEnemies(){
     content = "";
-    //Enemy type 1
-    for(var i=0; i<numEnemies1; i++){
-        content += "<div class='enemy1' style='left:"+enemies[i].x+"px; top:"
-        +enemies[i].y+"px'></div>";
-        document.getElementById("enemies").innerHTML = content;
-    }
-
-    //Enemy type 2
-    for(var i=numEnemies1; i<enemies.length; i++){
-        content += "<div class='enemy2' style='left:"+enemies[i].x+"px; top:"
+    for(var i=0; i<enemies.length; i++){
+        content += "<div class='"+enemies[i].type+"' id='enemy"+i+"' style='left:"+enemies[i].x+"px; top:"
         +enemies[i].y+"px'></div>";
         document.getElementById("enemies").innerHTML = content;
     }
@@ -88,9 +105,10 @@ function displayEnemies(){
 function moveEnemies() {
     for(enemy of enemies){
         enemy.y += enemySpeed;
-        if(enemy.y+10 > world.height){
+        if(enemy.y+20 > world.height){
             enemy.y = 0;
             enemy.x = randInt(50, world.width-50);
+            score += pass;
         }
     }
 }
@@ -103,8 +121,58 @@ function airplanesCollision() {
     }
 }
 
+function bulletCollision() {
+    for(enemy of enemies){
+        for(missile of missiles){
+            if(Math.abs(enemy.x - missile.x) < 16 && Math.abs(enemy.y - missile.y) < 5){
+                audio.play();
+                score += shoot;
+                explosions.push({x: enemy.x, y: (enemy.y)});
+                enemies.splice(enemies.indexOf(enemy), 1);
+            
+                if (enemies.length == 0){
+                    endGame();
+                }
+
+                missiles.pop();
+                missileClass[0].remove();
+            }
+        }
+    }
+}
+
+function displayExplosion() {
+    content = "";
+    for(var i=0; i<explosions.length;i++){
+        content += "<div class='explosion' style='left:"+explosions[i].x+"px; top:"+explosions[i].y+"px'></div>";
+        document.getElementById("explosions").innerHTML = content;
+    }
+    
+}
+
+function removeExplosion(){
+    explosions.shift();
+    if (explosionClass.length > 0){
+        explosionClass[0].remove();
+    }
+    displayExplosion();
+}
+
 function displayScore() {
     document.getElementById("score").innerHTML = score;
+}
+
+function endGame() {
+    document.querySelector("#enemy0").remove();
+    document.querySelector("#finalText").innerText = "ALL ENEMIES DESTROYED";
+    if(bestScore == null){
+        bestScore = score;
+    }
+    else if(score > bestScore) {
+        bestScore = score;
+    }
+    document.querySelector("#bestScore").innerText = bestScore;
+
 }
 
 function gameLoop(){
@@ -117,7 +185,10 @@ function gameLoop(){
     displayEnemies();
 
     airplanesCollision() 
-    
+    bulletCollision();
+
+    displayExplosion();
+
     displayScore();
 }
 
@@ -132,11 +203,15 @@ function keyDown(e){
     }
     //Up movement
     else if(e.code === "ArrowUp"  || e.code == "KeyW") {
-        hero.y -=10;
+        if(hero.y > world.height * 2 / 3){
+            hero.y -=10;
+        }
     }
     //Down movement
     else if(e.code === "ArrowDown"  || e.code == "KeyS") {
-        hero.y +=10;
+        if(hero.y < world.height-30){
+            hero.y +=10;
+        }
     }
     else if(e.code === "Space"){
         missiles.push({x: (hero.x+5), y: (hero.y-8)});

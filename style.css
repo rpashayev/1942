@@ -7,8 +7,14 @@
 
 body{
     background-color:black;
+    font-family: 'Press Start 2P', cursive;
 }
+
 #container{
+    display: flex;
+}
+
+#world{
     background: url('imgs/bg-m.jpg');
     background-size: cover;
     overflow: hidden;
@@ -20,7 +26,7 @@ body{
     height:28px;
     position:absolute;
 }
-.enemy1, .enemy2{
+.enemy1, .enemy2, .explosion{
     background: url('imgs/1942.gif');
     width:28px;
     height:28px;
@@ -42,13 +48,31 @@ body{
     height:18px;
     position:absolute;
 }
-#score{
-    position:absolute;
+
+.explosion{
+    background-position: -355px -35px;
+}
+
+.table{
     border:10px solid red;
-    top:20px;
-    left:800px;
+    text-align: center;
+    height: 15%;
+    width: 20%;
     background-color:white;
     padding:10px;
-    font-size:30px;
-    font-family: Arial;	
+    font-size:1.5em;
+}
+
+#score, #bestScore{
+    margin:15px 0;
+}
+
+.title, #finalText{
+    color: rgb(5, 5, 102);
+}
+
+#finalText {
+    text-align: center;
+    margin: 10% 0;
+    font-size: 3em;
 }
