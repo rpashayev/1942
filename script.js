@@ -79,6 +79,8 @@ function restartGame() {
 
     displayHero();
     
+    document.addEventListener("keydown", keyDown);
+
     gameLoop();
 }
 
@@ -254,4 +256,3 @@ function keyDown(e){
     displayHero();
 }
 
-document.addEventListener("keydown", keyDown);
