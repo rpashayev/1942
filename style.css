@@ -15,13 +15,15 @@ form {
 }
 
 h1 {
+    color: blue;
     text-align: center;
     font-size: 1.2em;;
-    margin-top: 50px;
+    margin: 50px 0 5px;
 }
 
-h1, label {
-    color: blue;
+label, #startBtn {
+    color:whitesmoke;
+    font-size: 10px;
 }
 
 #container{
@@ -89,4 +91,19 @@ h1, label {
     text-align: center;
     margin: 10% 0;
     font-size: 3em;
+}
+
+#startBtn, select {
+    background-color: blue;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 15px;
+    border-radius: 25px;
+    height: 20px;
+}
+
+#startBtn {
+    width: 25%;
+}
+select{
+    width: 20%;
 }

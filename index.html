@@ -30,33 +30,43 @@
 				<p id="bestScore">0</p>
 			</div>
 			<h1>Game settings</h1>
-			<form>
-				<!-- <label for="numOfEnemies"># of enemies</label> -->
-				<select id="numOfEnemies">
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7" selected="selected">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-				</select>
-				<select id="worldHeight">
-					<option value="400">400</option>
-					<option value="500">500</option>
-					<option value="600" selected="selected">600</option>
-				</select>
-				<select id="worldWidth">
-					<option value="700">700</option>
-					<option value="800">800</option>
-					<option value="900" selected="selected">900</option>
-				</select>
-				<button onclick="gameSettings()">START</button>
-			</form>
+			<div>
+				<form>
+					<label for="numOfEnemies"># of enemies</label>
+					<select id="numOfEnemies">
+						<option value="5" selected="selected">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+					</select>
+				</form>
+				<form>
+					<label for="worldHeight">Height</label>
+					<select id="worldHeight">
+						<option value="400">400</option>
+						<option value="500">500</option>
+						<option value="600" selected="selected">600</option>
+					</select>
+				</form>
+				<form>
+					<label for="worldWidth">Width</label>
+					<select id="worldWidth">
+						<option value="700">700</option>
+						<option value="800">800</option>
+						<option value="900" selected="selected">900</option>
+					</select>
+				</form>
+				<form>
+					<input type="submit" id="startBtn" value="START" onclick="gameSettings(event)">
+				</form>
+			</div>
 		</div>
 	</div>
 	
